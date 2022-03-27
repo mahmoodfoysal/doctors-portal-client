@@ -8,7 +8,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 const Login = () => {
 
     const [loginData, setLoginData] = useState({});
-    const {user, loginUser, isLoading} = useAuth();
+    const {user, loginUser, isLoading, signInWithGoogle} = useAuth();
     const location = useLocation();
     const history = useHistory();
     const handleOnChange = e => {
@@ -23,6 +23,10 @@ const Login = () => {
     const handleLoginSubmit = e => {
         e.preventDefault();
         loginUser(loginData.email, loginData.password, location, history)
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history)
     }
     return (
         <Container>
@@ -53,6 +57,8 @@ const Login = () => {
                     <Button sx={{width:"75%", m: 1}} type="submit" variant='contained'>Login</Button>
                     {user?.email && <Alert severity="success">Login successfully</Alert>}
                     </form>
+                    <p>----------------------------------------</p>
+                    <Button onClick={handleGoogleSignIn} variant='contained'>Google Sign In</Button>
                 
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
